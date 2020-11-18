@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+<body>
+    <div class="p-5">
+        <div class="row" id="list"></div>
+    </div>
+
+    <script>
+        let requestURL = 'ezquiz.json'; 
+        let request = new XMLHttpRequest(); 
+        request.onreadystatechange = function () { 
+            if (request.readyState == 4 && request.status == 200) {             
+                dataReportStatus(JSON.parse(request.responseText));            
+            } }; 
+        request.open("GET", requestURL, true); 
+        request.send(); 
+        
+        function dataReportStatus(data) {
+            var list = document.getElementById("list");
+
+            for (var i=0; ; i++) {
+                var box = document.createElement("div");
+                box.classList = "col-2"
+                var box2 = document.createElement("img");
+                box2.classList = "rounded w-100"
+                box2.src = data.item.image
+                var box3 = document.createElement("div");
+                box3.classList = "h5"
+                box3.innerText = data.item.song
+                var box4 = document.createElement("div");
+                box4.classList = "small"
+                box4.innerText = data.item.artist
+
+                box.appendChild(box2)
+                box.appendChild(box3)
+                box.appendChild(box4)
+                list.appendChild(box)
+            }
+
+        }
+    </script> 
+</body>
+</html>
